@@ -22,9 +22,12 @@
                 (+ i 1)
                 n)))  
 
-(define (pascal row col)
-  (cond
-    ((> col row) (error "unvalid col value"))
-    ((or (= row 0) (= row col)) 1)
-    (else  (+ (pascal (- row 1) (- col 1)) (pascal (- row 1) col)))))
 
+
+; lat?: list -> bool (c d (2 3))
+(define lat?
+  (lambda (l)
+    (cond
+      ((null? l) #t)
+      ((atom? (car l)) (lat? (cdr l)))
+      (else #f))))
