@@ -31,3 +31,46 @@
       ((null? l) #t)
       ((atom? (car l)) (lat? (cdr l)))
       (else #f))))
+
+(define rember
+  (lambda (a lat)
+    (cond
+      ((null? lat) '())
+      ((eq? a (car lat)) (cdr lat))
+      (else (cons (car lat) (rember a (cdr lat)))))))
+
+
+(define firsts
+  (lambda(l) 
+  (cond
+    ((null? l) '())
+    (else (cons (car (car l)) (firsts (cdr l))))))) ; 
+
+
+
+(define insertR 
+  (lambda (new old lst)
+  (cond
+    ((null? lst) '())
+    (else (cond
+      ((eq? (car lst) old) (cons old (cons new (cdr lst))))
+      (else (cons (car lst) (insertR new old (cdr lst)))))))))
+
+(define insertL 
+  (lambda (new old lst)
+  (cond
+    ((null? lst) '())
+    (else (cond
+      ((eq? (car lst) old) (cons new (cons old (cdr lst))))
+      (else (cons (car lst) (insertL new old (cdr lst)))))))))
+
+
+(define subst 
+  (lambda (new old lst)
+  (cond
+    ((null? lst) '())
+    (else (cond
+      ((eq? (car lst) old) (cons new (cdr lst)))
+      (else (cons (car lst) (insertL new old (cdr lst)))))))))
+     
+      
